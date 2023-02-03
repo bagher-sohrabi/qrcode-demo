@@ -50,17 +50,12 @@
       
       var hash =  window.location.hash.substring(1);
       
-      $("#text").
-      on("blur", function() {
-        makeCode();
-      }).
-      on("keydown", function(e) {
-        if (e.keyCode == 13) {
-          makeCode();
-        }
+      $("#text").change(function(e) {
+         makeCode();
       }).val(hash);
   
       qrcode.makeCode(hash);
+
     </script>
   </body>
 </html>
