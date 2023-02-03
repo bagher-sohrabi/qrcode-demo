@@ -5,10 +5,19 @@
     <title>QRCode</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <style>
-      #qrcode {
-        width: 160px;
-        height: 160px;
-        margin-top: 15px;
+      body {
+        text-align: center;
+        background: darkgoldenrod;
+        margin: 0 auto;
+      }
+      #id {
+        text-align: center;
+        width: 336px;
+        height: 30px;
+        margin: 0 auto;"
+      }
+      img {
+          display: inline;
       }
     </style>
     <script>
@@ -20,9 +29,9 @@
       }
     </script>
   </head>
-  <body translate="no" style="text-align: center; margin: 0 auto; background: darkgoldenrod;">
+  <body translate="no">
     <div id="qrcode"></div>
-    <input id="text" type="text" style="text-align: center;width: 400px;max-width: 100%;height: 30px;" />
+    <input id="text" type="text" />
     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src='//cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js'></script>
     <script id="rendered-js">
