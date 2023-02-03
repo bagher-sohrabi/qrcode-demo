@@ -40,8 +40,7 @@
       }
       makeCode();
       
-      const params = new URLSearchParams(window.location.search);
-      var q = params.get('q');
+      var hash =  window.location.hash.substring(1);
       
       $("#text").
       on("blur", function() {
@@ -51,7 +50,7 @@
         if (e.keyCode == 13) {
           makeCode();
         }
-      }).val(q);
+      }).val(hash).trigger();
   
     </script>
   </body>
