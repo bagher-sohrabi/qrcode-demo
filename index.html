@@ -1,68 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>QRCode</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
-    <style>
-      body {
-        text-align: center;
-        background: rgb(22, 27, 34);
-        margin: 0 auto;
-        padding: 10px;
-      }
-      #text {
-        text-align: center;
-        width: 336px;
-        height: 35px;
-        margin: 0 auto;
-        background-color: #161b22;
-        color: white;
-        border: 1px solid white;
-        border-radius: 4px;
-      }
-      img {
-        display: inline!important;
-        border: 42px solid white;
-        border-radius: 5px;
-      }
-    </style>
-    <script>
-      window.console = window.console || function(t) {};
-    </script>
-    <script>
-      if (document.location.search.match(/type=embed/gi)) {
-        window.parent.postMessage("resize", "*");
-      }
-    </script>
-  </head>
-  <body translate="no">
-    <div id="qrcode"></div>
-    <input id="text" type="text" />
-    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <script src='//cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js'></script>
-    <script id="rendered-js">
-      var qrcode = new QRCode("qrcode");
-
-      function makeCode() {
-        var elText = document.getElementById("text");
-        if (!elText.value) {
-          //alert("Input a text");
-          elText.focus();
-          return;
-        }
-        qrcode.makeCode(elText.value);
-      }
-      makeCode();
-      
-      var hash =  window.location.hash.substring(1);
-      
-      $("#text").change(function(e) {
+   <head>
+      <meta charset="UTF-8">
+      <title>QRCode</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+      <style>
+         body {
+         text-align: center;
+         background: rgb(22, 27, 34);
+         margin: 0 auto;
+         padding: 10px;
+         }
+         #text {
+         text-align: center;
+         width: 336px;
+         height: 35px;
+         margin: 0 auto;
+         background-color: #ffffff;
+         color: black;
+         border: 1px solid white;
+         border-radius: 4px;
+         font-family: system-ui;
+         }
+         img {
+         display: inline!important;
+         border: 42px solid white;
+         border-radius: 5px;
+         }
+      </style>
+      <script>
+         window.console = window.console || function(t) {};
+      </script>
+      <script>
+         if (document.location.search.match(/type=embed/gi)) {
+           window.parent.postMessage("resize", "*");
+         }
+      </script>
+   </head>
+   <body translate="no">
+      <div id="qrcode"></div>
+      <input id="text" type="text" />
+      <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+      <script src='//cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js'></script>
+      <script id="rendered-js">
+         var qrcode = new QRCode("qrcode");
+         
+         function makeCode() {
+           var elText = document.getElementById("text");
+           if (!elText.value) {
+             //alert("Input a text");
+             elText.focus();
+             return;
+           }
+           qrcode.makeCode(elText.value);
+         }
          makeCode();
-      }).val(hash);
-  
-      qrcode.makeCode(hash);
-
-    </script>
-  </body>
+         
+         var hash =  window.location.hash.substring(1);
+         
+         $("#text").change(function(e) {
+            makeCode();
+         }).val(hash);
+         
+         qrcode.makeCode(hash);
+         
+      </script>
+   </body>
 </html>
