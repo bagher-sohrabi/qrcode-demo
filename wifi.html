@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <title>QRCode</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+   <style>
+      body {
+         text-align: center;
+         background: rgb(22, 27, 34);
+         margin: 0 auto;
+         padding: 10px;
+      }
+
+      .text {
+         text-align: center;
+         width: 240px;
+         height: 35px;
+         margin: 0 auto;
+         background-color: #ffffff;
+         color: black;
+         border: 0;
+         border-radius: 2px;
+         font-size: 13px;
+         font-family: system-ui;
+         margin: 5px;
+      }
+
+      .item {
+         background: repeating-linear-gradient(45deg, black, transparent 100px);
+         padding: 15px 15px 5px 15px;
+         border-radius: 5px;
+         display: inline-block !important;
+      }
+
+      #text:focus {
+         outline: none;
+      }
+
+      img {
+         display: inline !important;
+         border: 25px solid white;
+         border-radius: 2px;
+      }
+   </style>
+   <script>
+      window.console = window.console || function (t) { };
+   </script>
+   <script>
+      if (document.location.search.match(/type=embed/gi)) {
+         window.parent.postMessage("resize", "*");
+      }
+   </script>
+</head>
+
+<body>
+   <div class="w3-row">
+      <div class="w3-row" style="margin-top: 15px;">
+         <div id="item-1" class="w3-col m6 l3">
+            <div class="item">
+               <div id="qrcode" class="id"></div>
+               <input id="ssid" type="text" class="text" placeholder="SSID" />
+               <input id="identity" type="text" class="text" placeholder="Identity" />
+               <input id="password" type="text" class="text" placeholder="Password" />
+               <button id="button" class="w3-button w3-teal  w3-block "
+                  style=" width: 240px; height: 35px; margin: 0 auto; ">Make QR Code!</button>
+
+            </div>
+         </div>
+      </div>
+   </div>
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+   <script src='https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js'></script>
+   <script id="rendered-js">
+      function generateWiFiConfig(ssid, identity, password) {
+         return `WIFI:T:WPA2-EAP;S:${ssid};H:false;E:PEAP;PH2:MSCHAPV2;A:;I:${identity};P:${password};;`;
+      }
+
+      var onclick = function () {
+         const element = document.getElementById('qrcode');
+
+         // Remove all the inside content
+         element.innerHTML = '';
+         const ssid = document.getElementById("ssid").value;
+         const identity = document.getElementById("identity").value;
+         const password = document.getElementById("password").value;
+
+         // Generate the Wi-Fi config string
+         const wifiConfig = generateWiFiConfig(ssid, identity, password);
+
+
+         var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: wifiConfig,
+            width: 190,
+            height: 190,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+         });
+      };
+      var wifiString = window.location.hash.replace("#", "");
+      // Remove the "WIFI:" prefix
+      const wifiData = wifiString.substring(5);
+
+      // Split the string by semicolons
+      const fields = wifiData.split(';');
+      // Initialize an object to store the extracted values
+      const wifiInfo = {};
+
+      // Loop through the fields and split each field by the first colon
+      fields.forEach(field => {
+         const [key, value] = field.split(':');
+         if (key) {
+            wifiInfo[key] = value;
+         }
+      });
+
+      console.log(wifiInfo);
+      // Check if values are null or undefined, default to 'Not available' if true
+      const ssid = wifiInfo["S"];
+      const user = wifiInfo["I"];
+      const password = wifiInfo["P"];
+
+      document.getElementById("ssid").value = ssid;
+      document.getElementById("identity").value = user;
+      document.getElementById("password").value = password;
+
+      onclick();
+
+      document.getElementById("button").onclick = onclick;
+
+
+
+   </script>
+</body>
+
+</html>
