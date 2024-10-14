@@ -112,8 +112,10 @@
 
       // Loop through the fields and split each field by the first colon
       fields.forEach(field => {
-         const [key, value] = field.split(':');
-         if (key) {
+         const index = field.indexOf(':');
+         if (index > -1) {
+            const key = field.substring(0, index);
+            const value = field.substring(index + 1);
             wifiInfo[key] = value;
          }
       });
